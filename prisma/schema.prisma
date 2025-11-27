@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model TvShow {
+  id                 Int          @id 
+  name               String
+  overview           String
+  posterImage        String?      @map("poster_image")
+  backdropImage      String?      @map("backdrop_image")
+  firstAirDate       String       @map("first_air_date")
+  voteAverage        Float        @map("vote_average")
+  voteCount          Int          @map("vote_count")
+  numberOfSeasons    Int          @map("number_of_seasons")
+  numberOfEpisodes   Int          @map("number_of_episodes")
+  status             String
+  genres             Json         
+  characters         Character[]  
+
+  @@map("tv_shows")
+}
+
+model Character {
+  id                 Int           @id
+  tvShow             TvShow        @relation(fields: [tvShowId], references: [id])
+  tvShowId           Int           @map("tv_show_id")
+
+  characterName      String        @map("character_name")
+
+  actorId            Int           @map("actor_id")
+  actorName          String        @map("actor_name")
+  actorBiography     String        @default("") @map("actor_biography")
+  actorBirthday      String?       @map("actor_birthday")
+  actorDeathday      String?       @map("actor_deathday")
+  actorAge           Int?          @map("actor_age")
+  actorPlaceOfBirth  String?       @map("actor_place_of_birth")
+  actorProfileImage  String?       @map("actor_profile_image")
+  actorPopularity    Float         @map("actor_popularity")
+  actorGender        String        @map("actor_gender")
+  actorKnownFor      String        @map("actor_known_for")
+  actorAlsoKnownAs   String[]      @map("actor_also_known_as")
+  actorHomepage      String?       @map("actor_homepage")
+  actorImdbId        String        @map("actor_imdb_id")
+
+  @@map("characters")
+}
