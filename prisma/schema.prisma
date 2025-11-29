@@ -24,27 +24,53 @@ model TvShow {
   @@map("tv_shows")
 }
 
+model Movie {
+  id                 Int            @id
+  imdbId             Int?           @map("imdb_id")
+  backdropPath       String?        @map("backdrop_path")
+  posterPath         String?        @map("poster_path")
+  originCountry      String[]       @map("origin_country")
+  originalLanguage   String         @map("original_language")
+  originalTitle      String         @map("original_title")
+  overview           String
+  popularity         Float
+  releaseDate        String         @map("release_date")
+  revenue            Int?
+  status             String
+  tagline            String?
+  title              String
+  voteAverage        Float          @map("vote_average")
+  voteCount          Int            @map("vote_count")
+  genres               Json
+  productionCompanies  Json         @map("production_companies")
+  productionCountries  Json         @map("production_countries")
+  spokenLanguages      Json         @map("spoken_languages")
+  characters         Character[]
+
+  @@map("movies")
+}
+
 model Character {
-  id                 Int           @id
-  tvShow             TvShow        @relation(fields: [tvShowId], references: [id])
-  tvShowId           Int           @map("tv_show_id")
-
-  characterName      String        @map("character_name")
-
-  actorId            Int           @map("actor_id")
-  actorName          String        @map("actor_name")
-  actorBiography     String        @default("") @map("actor_biography")
-  actorBirthday      String?       @map("actor_birthday")
-  actorDeathday      String?       @map("actor_deathday")
-  actorAge           Int?          @map("actor_age")
-  actorPlaceOfBirth  String?       @map("actor_place_of_birth")
-  actorProfileImage  String?       @map("actor_profile_image")
-  actorPopularity    Float         @map("actor_popularity")
-  actorGender        String        @map("actor_gender")
-  actorKnownFor      String        @map("actor_known_for")
-  actorAlsoKnownAs   String[]      @map("actor_also_known_as")
-  actorHomepage      String?       @map("actor_homepage")
-  actorImdbId        String        @map("actor_imdb_id")
+  id                 Int        @id
+  tvShowId           Int?       @map("tv_show_id")
+  tvShow             TvShow?    @relation(fields: [tvShowId], references: [id])
+  movieId            Int?       @map("movie_id")
+  movie              Movie?     @relation(fields: [movieId], references: [id])
+  characterName      String     @map("character_name")
+  actorId            Int        @map("actor_id")
+  actorName          String     @map("actor_name")
+  actorBiography     String     @default("") @map("actor_biography")
+  actorBirthday      String?    @map("actor_birthday")
+  actorDeathday      String?    @map("actor_deathday")
+  actorAge           Int?       @map("actor_age")
+  actorPlaceOfBirth  String?    @map("actor_place_of_birth")
+  actorProfileImage  String?    @map("actor_profile_image")
+  actorPopularity    Float      @map("actor_popularity")
+  actorGender        String     @map("actor_gender")
+  actorKnownFor      String     @map("actor_known_for")
+  actorAlsoKnownAs   String[]   @map("actor_also_known_as")
+  actorHomepage      String?    @map("actor_homepage")
+  actorImdbId        String?     @map("actor_imdb_id")
 
   @@map("characters")
 }

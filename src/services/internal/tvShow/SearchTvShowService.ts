@@ -1,8 +1,8 @@
 import prismaClient from "../../../prisma";
-import { TvShowRequest } from "../../../types/tvshow.types";
+import { NameMovieOrTvShow } from "../../../types/tvShowAndMovie.types";
 
 class SearchTvShowService {
-  async execute(req: TvShowRequest) {
+  async execute(req: NameMovieOrTvShow) {
     const tvshow = await prismaClient.tvShow.findFirst({
       where: {
         name: req.name,

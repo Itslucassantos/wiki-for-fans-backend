@@ -47,6 +47,7 @@ class TvShowService {
 
       const characters = await this.searchCharactersTmdbService.execute({
         id: tvShow.id,
+        type: "tv",
       });
 
       const savedTvShow = await this.saveTvShowService.execute(tvShowDetails);

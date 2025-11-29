@@ -1,9 +1,5 @@
 import { CharacterProps } from "./character.types";
 
-export interface TvShowRequest {
-  name: string;
-}
-
 export interface TvShowProps {
   id: number;
   name: string;

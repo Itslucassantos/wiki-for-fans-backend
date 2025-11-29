@@ -5,3 +5,8 @@ export interface IdMovieOrTvShow {
 export interface NameMovieOrTvShow {
   name: string;
 }
+
+export interface IdAndTypeMovieOrTvShow {
+  id: number;
+  type: "movie" | "tv";
+}

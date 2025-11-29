@@ -17,11 +17,13 @@ interface TvShowReq {
 
 class SaveTvShowService {
   async execute(tvShowReq: TvShowReq) {
-    return prismaClient.tvShow.create({
+    const tvShowSaved = await prismaClient.tvShow.create({
       data: {
         ...tvShowReq,
       },
     });
+
+    return tvShowSaved;
   }
 }
 
