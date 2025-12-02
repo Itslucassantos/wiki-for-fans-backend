@@ -55,7 +55,7 @@ model Character {
   tvShowId           Int?       @map("tv_show_id")
   tvShow             TvShow?    @relation(fields: [tvShowId], references: [id])
   movieId            Int?       @map("movie_id")
-  movie              Movie?     @relation(fields: [movieId], references: [id])
+  movie              Movie?     @relation(fields: [movieId], references: [id], onDelete: Cascade)
   characterName      String     @map("character_name")
   actorId            Int        @map("actor_id")
   actorName          String     @map("actor_name")
