@@ -18,7 +18,8 @@ model TvShow {
   numberOfSeasons    Int          @map("number_of_seasons")
   numberOfEpisodes   Int          @map("number_of_episodes")
   status             String
-  genres             Json         
+  genres             Json     
+  favorite           Boolean      @default(false)
   characters         Character[]  
 
   @@map("tv_shows")
@@ -45,6 +46,7 @@ model Movie {
   productionCompanies  Json         @map("production_companies")
   productionCountries  Json         @map("production_countries")
   spokenLanguages      Json         @map("spoken_languages")
+  favorite           Boolean      @default(false)
   characters         Character[]
 
   @@map("movies")
