@@ -1,15 +1,11 @@
 import prismaClient from "../../../prisma";
-
-interface SaveFavoriteMovieRequest {
-  id: number;
-  favorite: boolean;
-}
+import { SaveFavoriteMovieOrTvShowRequest } from "../../../types/tvShowAndMovie.types";
 
 class SaveFavoriteMovieService {
-  async execute({ id, favorite }: SaveFavoriteMovieRequest) {
+  async execute({ id, favorite }: SaveFavoriteMovieOrTvShowRequest) {
     const movie = await prismaClient.movie.update({
       where: { id },
-      data: { favorite: favorite },
+      data: { favorite },
     });
 
     return movie;

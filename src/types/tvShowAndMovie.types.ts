@@ -10,3 +10,8 @@ export interface IdAndTypeMovieOrTvShow {
   id: number;
   type: "movie" | "tv";
 }
+
+export interface SaveFavoriteMovieOrTvShowRequest {
+  id: number;
+  favorite: boolean;
+}
