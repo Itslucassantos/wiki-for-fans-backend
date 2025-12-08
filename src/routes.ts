@@ -7,6 +7,8 @@ import { SaveFavoriteMovieController } from "./controllers/movie/SaveFavoriteMov
 import { searchMovieById } from "./middlewares/movie/searchMovieById";
 import { searchTvShowById } from "./middlewares/tvShow/searchTvShowById";
 import { SaveFavoriteTvShowController } from "./controllers/tvshow/SaveFavoriteTvShowController";
+import { SearchAllFavoritesTvShowController } from "./controllers/tvshow/SearchAllFavoritesTvShowController";
+import { SearchAllFavoriteMoviesController } from "./controllers/movie/SearchAllFavoriteMoviesController";
 
 const router = Router();
 
@@ -21,6 +23,10 @@ router.delete(
   searchTvShowById,
   new RemoveTvShowController().handle
 );
+router.get(
+  "/tvshow/searchAllFavorites",
+  new SearchAllFavoritesTvShowController().handle
+);
 
 router.post("/movie", new MovieController().handle);
 router.post(
@@ -32,6 +38,10 @@ router.delete(
   "/movie/remove",
   searchMovieById,
   new RemoveMovieController().handle
+);
+router.get(
+  "/movie/searchAllFavorites",
+  new SearchAllFavoriteMoviesController().handle
 );
 
 export { router };
