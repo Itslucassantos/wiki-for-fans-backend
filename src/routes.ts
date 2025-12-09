@@ -9,6 +9,8 @@ import { searchTvShowById } from "./middlewares/tvShow/searchTvShowById";
 import { SaveFavoriteTvShowController } from "./controllers/tvshow/SaveFavoriteTvShowController";
 import { SearchAllFavoritesTvShowController } from "./controllers/tvshow/SearchAllFavoritesTvShowController";
 import { SearchAllFavoriteMoviesController } from "./controllers/movie/SearchAllFavoriteMoviesController";
+import { SearchAllMoviesController } from "./controllers/movie/SearchAllMoviesController";
+import { SearchAllTvShowsController } from "./controllers/tvshow/SearchAllTvShowsController";
 
 const router = Router();
 
@@ -27,6 +29,7 @@ router.get(
   "/tvshow/searchAllFavorites",
   new SearchAllFavoritesTvShowController().handle
 );
+router.get("/tvshow/searchAllTvShows", new SearchAllTvShowsController().handle);
 
 router.post("/movie", new MovieController().handle);
 router.post(
@@ -43,5 +46,6 @@ router.get(
   "/movie/searchAllFavorites",
   new SearchAllFavoriteMoviesController().handle
 );
+router.get("/movie/searchAllMovies", new SearchAllMoviesController().handle);
 
 export { router };
