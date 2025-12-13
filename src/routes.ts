@@ -4,25 +4,27 @@ import { MovieController } from "./controllers/movie/MovieController";
 import { RemoveMovieController } from "./controllers/movie/RemoveMovieController";
 import { RemoveTvShowController } from "./controllers/tvshow/RemoveTvShowController";
 import { SaveFavoriteMovieController } from "./controllers/movie/SaveFavoriteMovieController";
-import { searchMovieById } from "./middlewares/movie/searchMovieById";
-import { searchTvShowById } from "./middlewares/tvShow/searchTvShowById";
+import { checksIfTheMovieExists } from "./middlewares/movie/checksIfTheMovieExists";
+import { checksIfTheTvShowExists } from "./middlewares/tvShow/checksIfTheTvShowExists";
 import { SaveFavoriteTvShowController } from "./controllers/tvshow/SaveFavoriteTvShowController";
 import { SearchAllFavoritesTvShowController } from "./controllers/tvshow/SearchAllFavoritesTvShowController";
 import { SearchAllFavoriteMoviesController } from "./controllers/movie/SearchAllFavoriteMoviesController";
 import { SearchAllMoviesController } from "./controllers/movie/SearchAllMoviesController";
 import { SearchAllTvShowsController } from "./controllers/tvshow/SearchAllTvShowsController";
+import { SearchMovieByIdController } from "./controllers/movie/SearchMovieByIdController";
+import { SearchTvShowByIdController } from "./controllers/tvshow/SearchTvShowByIdController";
 
 const router = Router();
 
 router.post("/tvshow", new TvShowController().handle);
 router.post(
   "/tvshow/favorite",
-  searchTvShowById,
+  checksIfTheTvShowExists,
   new SaveFavoriteTvShowController().handle
 );
 router.delete(
   "/tvshow/remove",
-  searchTvShowById,
+  checksIfTheTvShowExists,
   new RemoveTvShowController().handle
 );
 router.get(
@@ -30,16 +32,17 @@ router.get(
   new SearchAllFavoritesTvShowController().handle
 );
 router.get("/tvshow/searchAllTvShows", new SearchAllTvShowsController().handle);
+router.get("/tvshow/searchTvShowById", new SearchTvShowByIdController().handle);
 
 router.post("/movie", new MovieController().handle);
 router.post(
   "/movie/favorite",
-  searchMovieById,
+  checksIfTheMovieExists,
   new SaveFavoriteMovieController().handle
 );
 router.delete(
   "/movie/remove",
-  searchMovieById,
+  checksIfTheMovieExists,
   new RemoveMovieController().handle
 );
 router.get(
@@ -47,5 +50,6 @@ router.get(
   new SearchAllFavoriteMoviesController().handle
 );
 router.get("/movie/searchAllMovies", new SearchAllMoviesController().handle);
+router.get("/movie/searchMovieById", new SearchMovieByIdController().handle);
 
 export { router };

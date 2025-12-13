@@ -1,19 +1,19 @@
 import { NextFunction, Request, Response } from "express";
 import prismaClient from "../../prisma";
 
-export async function searchMovieById(
+export async function checksIfTheTvShowExists(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   const id = Number(req.query.id || req.body.id);
 
-  const movie = await prismaClient.movie.findUnique({
+  const tvShow = await prismaClient.tvShow.findUnique({
     where: { id },
   });
 
-  if (!movie) {
-    return res.status(404).json({ error: "Movie not found" });
+  if (!tvShow) {
+    return res.status(404).json({ error: "Tv Show not found" });
   }
 
   return next();
