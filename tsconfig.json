@@ -8,9 +8,9 @@
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "commonjs",
-    "target": "es2016",
-    "typeRoots": ["./src/@types"],
-    "types": [],
+    "target": "es2020",
+    // "typeRoots": ["./src/@types"],
+    "types": ["jest"],
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
