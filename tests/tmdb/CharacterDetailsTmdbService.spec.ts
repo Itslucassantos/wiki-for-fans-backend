@@ -116,4 +116,94 @@ describe("CharacterDetailsTmdbService", () => {
       "TMDB error"
     );
   });
+
+  it("calculates age correctly when actor is deceased and maps gender variants", async () => {
+    (api.get as jest.Mock).mockResolvedValue({
+      data: {
+        id: 10,
+        name: "Actor",
+        biography: "",
+        birthday: "1980-01-10",
+        deathday: "2020-01-01",
+        place_of_birth: null,
+        profile_path: null,
+        popularity: 1,
+        gender: 1,
+        known_for_department: "Acting",
+        also_known_as: [],
+        homepage: null,
+        imdb_id: "x",
+      },
+    });
+
+    (ImageUrlBuilder.build as jest.Mock).mockReturnValue(null);
+
+    const service = new CharacterDetailsTmdbService();
+    const result = await service.execute({ id: 10, character: "Test" });
+
+    expect(result.actorAge).toBe(39);
+    expect(result.actorGender).toBe("Female");
+  });
+
+  it.each([
+    { gender: 3, expected: "Non-binary" },
+    { gender: 99, expected: "Unknown" },
+  ])("maps gender code $gender to $expected", async ({ gender, expected }) => {
+    (api.get as jest.Mock).mockResolvedValue({
+      data: {
+        id: 20,
+        name: "Actor",
+        biography: "",
+        birthday: "1990-01-01",
+        deathday: null,
+        place_of_birth: null,
+        profile_path: null,
+        popularity: 1,
+        gender,
+        known_for_department: "Acting",
+        also_known_as: [],
+        homepage: null,
+        imdb_id: "x",
+      },
+    });
+
+    (ImageUrlBuilder.build as jest.Mock).mockReturnValue(null);
+
+    const service = new CharacterDetailsTmdbService();
+    const result = await service.execute({ id: 20, character: "Test" });
+
+    expect(result.actorGender).toBe(expected);
+  });
+
+  it("decrements age when birthday has not occurred yet in the current year", async () => {
+    jest.useFakeTimers();
+    jest.setSystemTime(new Date("2024-01-05"));
+
+    (api.get as jest.Mock).mockResolvedValue({
+      data: {
+        id: 30,
+        name: "Actor",
+        biography: "",
+        birthday: "1990-01-10",
+        deathday: null,
+        place_of_birth: null,
+        profile_path: null,
+        popularity: 1,
+        gender: 2,
+        known_for_department: "Acting",
+        also_known_as: [],
+        homepage: null,
+        imdb_id: "x",
+      },
+    });
+
+    (ImageUrlBuilder.build as jest.Mock).mockReturnValue(null);
+
+    const service = new CharacterDetailsTmdbService();
+    const result = await service.execute({ id: 30, character: "Test" });
+
+    expect(result.actorAge).toBe(33);
+
+    jest.useRealTimers();
+  });
 });
