@@ -25,6 +25,7 @@ class SearchMovieDetailsTmdbService {
       popularity: movieDetails.popularity,
       releaseDate: movieDetails.release_date,
       revenue: movieDetails.revenue,
+      runtime: movieDetails.runtime,
       status: movieDetails.status,
       tagline: movieDetails.tagline,
       title: movieDetails.title,

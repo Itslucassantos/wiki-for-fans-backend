@@ -12,6 +12,7 @@ export interface MovieProps {
   popularity: number;
   releaseDate: string;
   revenue: number;
+  runtime: number;
   status: string;
   tagline: string;
   title: string;
@@ -44,6 +45,7 @@ export interface MovieResponse {
   popularity: number;
   releaseDate: string;
   revenue: number;
+  runtime: number;
   status: string;
   tagline: string;
   title: string;

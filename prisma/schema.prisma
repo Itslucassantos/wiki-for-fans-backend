@@ -39,6 +39,7 @@ model Movie {
   popularity         Float
   releaseDate        String         @map("release_date")
   revenue            Int?
+  runtime            Int?
   status             String
   tagline            String?
   title              String
